@@ -1,10 +1,13 @@
 {
   "name": "whereiam",
   "version": "1.0.0",
-  "description": "",
+  "description": "whereiam backend",
   "main": "index.js",
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": "16.14.0"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "nodemon ./index.js"
