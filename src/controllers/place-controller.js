@@ -3,7 +3,7 @@ import placeService from "../services/place-service.js";
 class PlaceController {
   async getPlaces(req, res, next) {
     try {
-      const placeList = await placeService.getPlaces();
+      const placeList = await placeService.getPlaces(req?.query?.search);
       res.json(placeList);
     } catch (error) {
       next(error);

@@ -12,9 +12,10 @@ import { populate } from "../utils/populate.js";
 import { changeArray } from "../utils/changeArray.js";
 
 class PlaceService {
-  async getPlaces() {
+  async getPlaces(search) {
+    console.log(search);
     const placeList = await placeModel.find();
-    return placeList;
+    return placeList.filter((el) => el.name.includes(search));
   }
 
   async getOnePlace(_id, query) {
