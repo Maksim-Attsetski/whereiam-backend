@@ -12,9 +12,8 @@ import { populate } from "../utils/populate.js";
 import { changeArray } from "../utils/changeArray.js";
 
 class PlaceService {
-  async getPlaces(search) {
-    console.log(search);
-    const placeList = await placeModel.find();
+  async getPlaces({ search, authorID }) {
+    const placeList = await placeModel.find(authorID ? { authorID } : {});
     return placeList.filter((el) => (search ? el.name.includes(search) : el));
   }
 
