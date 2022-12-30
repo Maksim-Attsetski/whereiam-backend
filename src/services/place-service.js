@@ -4,10 +4,12 @@ import PlaceGetDto from "../dto/place/place-get-dto.js";
 import { ApiError } from "../exceptions/api-error.js";
 
 import placeModel from "../models/place-model.js";
+import userModel from "../models/user-model.js";
 
 import fileService from "./file-service.js";
 
 import { populate } from "../utils/populate.js";
+import { changeArray } from "../utils/changeArray.js";
 
 class PlaceService {
   async getPlaces() {
@@ -28,10 +30,21 @@ class PlaceService {
 
   async createPlace({ place }) {
     // const placeDto = new PlaceCreateDto(place);
-    const images = await fileService.saveArrayOfImages(place.images);
 
+    const user = await userModel.findById(place.authorID);
+
+    if (!user) {
+      throw ApiError.BadRequest("User is undefined");
+    }
+
+    const images = place.images;
+    // const images = await fileService.saveArrayOfImages(place.images);
     const newPlace = await placeModel.create({ ...place, images });
 
+    user.places = changeArray(user.places, newPlace._id);
+    await user.save();
+
+    console.log(newPlace);
     return new PlaceGetDto(newPlace);
   }
 
@@ -46,6 +59,8 @@ class PlaceService {
     if (!newPlace?._id) {
       throw ApiError.BadRequest("Place with this id is not exist");
     }
+    await newPlace.save();
+    console.log(newPlace);
 
     return new PlaceGetDto(newPlace);
   }
