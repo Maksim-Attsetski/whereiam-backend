@@ -15,7 +15,7 @@ class PlaceService {
   async getPlaces(search) {
     console.log(search);
     const placeList = await placeModel.find();
-    return placeList.filter((el) => el.name.includes(search));
+    return placeList.filter((el) => (search ? el.name.includes(search) : el));
   }
 
   async getOnePlace(_id, query) {
