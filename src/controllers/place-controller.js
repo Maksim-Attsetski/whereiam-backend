@@ -22,7 +22,7 @@ class PlaceController {
     try {
       console.log(req.files);
       const newPlace = await placeService.createPlace(req.body);
-      res.json(newPlace);
+      res.json({ ...newPlace, files: req.files });
     } catch (error) {
       next(error);
     }

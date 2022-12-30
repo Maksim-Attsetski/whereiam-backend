@@ -28,7 +28,7 @@ class PlaceService {
     return populatedItem;
   }
 
-  async createPlace({ place }) {
+  async createPlace(place) {
     // const placeDto = new PlaceCreateDto(place);
 
     const user = await userModel.findById(place.authorID);
@@ -48,7 +48,7 @@ class PlaceService {
     return new PlaceGetDto(newPlace);
   }
 
-  async updatePlace({ place }) {
+  async updatePlace(place) {
     console.log("place", place);
     if (!place?._id) {
       throw ApiError.BadRequest("Id is requred");
