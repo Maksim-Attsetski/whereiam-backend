@@ -31,18 +31,18 @@ class PlaceService {
   async createPlace(place) {
     // const placeDto = new PlaceCreateDto(place);
 
-    const user = await userModel.findById(place.authorID);
+    // const user = await userModel.findById(place.authorID);
 
-    if (!user) {
-      throw ApiError.BadRequest("User is undefined");
-    }
+    // if (!user) {
+    //   throw ApiError.BadRequest("User is undefined");
+    // }
 
     const images = place.images;
     // const images = await fileService.saveArrayOfImages(place.images);
     const newPlace = await placeModel.create({ ...place, images });
 
-    user.places = changeArray(user.places, newPlace._id);
-    await user.save();
+    // user.places = changeArray(user.places, newPlace._id);
+    // await user.save();
 
     console.log(newPlace);
     return new PlaceGetDto(newPlace);
