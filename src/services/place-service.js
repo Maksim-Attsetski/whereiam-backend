@@ -78,9 +78,10 @@ class PlaceService {
     }
 
     const user = await userModel.findById(place.authorID);
-
-    user?.places = changeArray(user?.places, newPlace._id, true);
-    await user?.save();
+    if (user) {
+      user.places = await changeArray(user.places, newPlace._id, true);
+      await user.save();
+    }
 
     return place._id;
   }
