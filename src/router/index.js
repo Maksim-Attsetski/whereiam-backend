@@ -37,10 +37,10 @@ router.post(
   phoneController.loginByPhone
 );
 
-router.get("/place", placeController.getPlaces);
+router.get("/place", authMiddleware, placeController.getPlaces);
 router.get("/place/:_id", placeController.getOnePlace);
 router.post("/place", placeController.createPlace);
-router.put("/place", placeController.updatePlace);
+router.put("/place/:_id", placeController.updatePlace);
 router.delete("/place/:_id", placeController.deletePlace);
 
 export default router;

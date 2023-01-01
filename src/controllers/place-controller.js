@@ -29,7 +29,10 @@ class PlaceController {
   }
   async updatePlace(req, res, next) {
     try {
-      const newPlace = await placeService.updatePlace(req.body);
+      const newPlace = await placeService.updatePlace(
+        req.params?._id,
+        req.body
+      );
       res.json(newPlace);
     } catch (error) {
       next(error);

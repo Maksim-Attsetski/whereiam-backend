@@ -44,29 +44,27 @@ class PlaceService {
     user.places = changeArray(user.places, newPlace._id);
     await user.save();
 
-    console.log(newPlace);
     return new PlaceGetDto(newPlace);
   }
 
-  async updatePlace(place) {
-    console.log("place", place);
-    if (!place?._id) {
+  async updatePlace(_id, place) {
+    if (!_id) {
       throw ApiError.BadRequest("Id is requred");
     }
 
-    const newPlace = await placeModel.findOneAndUpdate(place?._id, place);
+    console.log(_id, place);
+    const newPlace = await placeModel.findByIdAndUpdate(_id, place);
 
     if (!newPlace?._id) {
       throw ApiError.BadRequest("Place with this id is not exist");
     }
+    console.log("newPlace", newPlace);
     await newPlace.save();
-    console.log(newPlace);
 
     return new PlaceGetDto(newPlace);
   }
 
   async deletePlace(_id) {
-    console.log(_id);
     if (!_id) {
       throw ApiError.BadRequest("Id is requred");
     }
