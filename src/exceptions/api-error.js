@@ -23,6 +23,10 @@ class ApiError extends Error {
   static NotExist(message = "This shit is doesn't exist", errors) {
     return new ApiError(404, message, errors);
   }
+
+  static AlreadyExist(message = "This shit is exists", errors) {
+    return new ApiError(403, message, errors);
+  }
 }
 
 export { ApiError };

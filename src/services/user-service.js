@@ -23,7 +23,15 @@ class UserService {
     const nameExist = await UserModel.findOne({ name });
 
     if (nameExist) {
-      throw ApiError.BadRequest(`Пользователь с именем ${name} уже существует`);
+      throw ApiError.AlreadyExist(
+        `Пользователь с именем ${name} уже существует`
+      );
+    }
+
+    if (nameExist.email === email) {
+      throw ApiError.AlreadyExist(
+        `Пользователь с почтой ${email} уже существует`
+      );
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
@@ -51,7 +59,7 @@ class UserService {
     const user = await UserModel.findOne({ email });
 
     if (!user) {
-      throw ApiError.BadRequest(`Пользователя с почтой ${email} не существует`);
+      throw ApiError.NotExist(`Пользователя с почтой ${email} не существует`);
     }
 
     const isPassEqual = await bcrypt.compare(password, user.password);
@@ -77,9 +85,11 @@ class UserService {
   }
 
   async checkIsExist(query) {
-    console.log(query);
-    const users = await UserModel.find({ $text: "Пончитта" });
-    return users;
+    if (Object.keys(query).length < 1) {
+      return false;
+    }
+    const users = await UserModel.findOne(query);
+    return !!users;
   }
 
   async deleteUser(id) {
