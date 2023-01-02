@@ -1,6 +1,6 @@
 import MailService from "../services/mail-service.js";
 
-class UserController {
+class MailController {
   async sendLink(req, res, next) {
     try {
       const { link, to } = req.body;
@@ -22,4 +22,4 @@ class UserController {
   }
 }
 
-export default new UserController();
+export default new MailController();

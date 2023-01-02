@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import UserModel from "../models/user-model.js";
 
 import TokenService from "./token-service.js";
+import mailService from "./mail-service.js";
 
 import UserCreateDto from "../dto/user/user-create-dto.js";
 import UserGetDto from "../dto/user/user-get-dto.js";
@@ -40,7 +41,7 @@ class UserService {
       password: hashPassword,
     });
 
-    // await EmailService.sendActivationLink(email, activationLink);
+    await mailService.sendActivationLink(email, activationLink);
     const tokens = await this.generateAndSaveTokens(newUser._id, userDto);
 
     return { ...tokens, user: { ...userDto, _id: newUser._id } };

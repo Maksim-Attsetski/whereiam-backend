@@ -21,7 +21,7 @@ router.post("/logout", userController.logout);
 router.get("/refresh", userController.refresh);
 
 router.get("/mail/activate/:link", mailController.activateLink);
-router.get("/mail/send", mailController.sendLink);
+router.post("/mail/send", mailController.sendLink);
 
 router.get("/users", authMiddleware, userController.getUsers);
 router.delete("/users/:_id", userController.deleteAccount);
