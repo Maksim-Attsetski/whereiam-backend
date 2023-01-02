@@ -21,14 +21,13 @@ class UserService {
 
   async registration({ name, email, password }) {
     const nameExist = await UserModel.findOne({ name });
-
     if (nameExist) {
       throw ApiError.AlreadyExist(
         `Пользователь с именем ${name} уже существует`
       );
     }
-
-    if (nameExist.email === email) {
+    const emailExist = await UserModel.findOne({ name });
+    if (emailExist) {
       throw ApiError.AlreadyExist(
         `Пользователь с почтой ${email} уже существует`
       );
