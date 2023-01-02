@@ -26,7 +26,7 @@ class UserService {
         `Пользователь с именем ${name} уже существует`
       );
     }
-    const emailExist = await UserModel.findOne({ name });
+    const emailExist = await UserModel.findOne({ email });
     if (emailExist) {
       throw ApiError.AlreadyExist(
         `Пользователь с почтой ${email} уже существует`
