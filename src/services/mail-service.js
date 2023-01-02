@@ -1,8 +1,4 @@
 import nodemailer from "nodemailer";
-import { ApiError } from "../exceptions/api-error.js";
-
-import UserModel from "../models/user-model.js";
-
 class MailService {
   constructor() {
     this.transporter = nodemailer.createTransport({
@@ -18,10 +14,10 @@ class MailService {
 
   async sendActivationLink(to, link, isActivate = true) {
     const url = isActivate
-      ? `${process.env.API_URL}/api/activate/${link}`
+      ? `${process.env.API_URL}/api/mail/activate/${link}`
       : link;
 
-    this.transporter.sendMail({
+    await this.transporter.sendMail({
       from: process.env.SMTP_EMAIL,
       to,
       subject: "Активация аккаунта",
@@ -37,14 +33,15 @@ class MailService {
   }
 
   async activate(activationLink) {
-    const user = UserModel.findOne({ activationLink });
+    // const user = UserModel.findOne({ activationLink });
 
-    if (!user) {
-      throw ApiError("Неккоректная ссылка для активации");
-    }
+    // if (!user) {
+    //   throw ApiError("Неккоректная ссылка для активации");
+    // }
 
-    user.isVerify = true;
-    await user.save();
+    // user.isVerify = true;
+    // await user.save();
+    return activationLink;
   }
 }
 

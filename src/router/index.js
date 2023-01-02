@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { body } from "express-validator";
 
+import mailController from "../controllers/mail-controller.js";
 import phoneController from "../controllers/phone-controller.js";
 import placeController from "../controllers/place-controller.js";
 import userController from "../controllers/user-controller.js";
@@ -19,7 +20,8 @@ router.post("/login", userController.login);
 router.post("/logout", userController.logout);
 router.get("/refresh", userController.refresh);
 
-router.get("/activate/:link", userController.activateLink);
+router.get("/mail/activate/:link", mailController.activateLink);
+router.get("/mail/send", mailController.sendLink);
 
 router.get("/users", authMiddleware, userController.getUsers);
 router.delete("/users/:_id", userController.deleteAccount);
