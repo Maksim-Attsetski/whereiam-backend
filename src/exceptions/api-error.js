@@ -19,6 +19,10 @@ class ApiError extends Error {
   static InvalidRequest(message = "Request", errors) {
     return new ApiError(400, message + " is invalid", errors);
   }
+
+  static NotExist(message = "This shit is doesn't exist", errors) {
+    return new ApiError(404, message, errors);
+  }
 }
 
 export { ApiError };

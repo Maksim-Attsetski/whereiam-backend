@@ -90,7 +90,16 @@ class UserController {
 
   async getUsers(req, res, next) {
     try {
-      const users = UserService.getUsers();
+      const users = await UserService.getUsers();
+      return res.json(users);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async checkIsExist(req, res, next) {
+    try {
+      const users = await UserService.checkIsExist(req.query);
       return res.json(users);
     } catch (error) {
       next(error);

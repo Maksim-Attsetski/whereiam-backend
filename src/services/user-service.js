@@ -76,11 +76,17 @@ class UserService {
     return users;
   }
 
+  async checkIsExist(query) {
+    console.log(query);
+    const users = await UserModel.find({ $text: "Пончитта" });
+    return users;
+  }
+
   async deleteUser(id) {
     const user = await UserModel.findByIdAndDelete(id);
 
     if (!user) {
-      throw ApiError.BadRequest(`Пользователя с id: ${id} не существует`);
+      throw ApiError.NotExist(`Пользователя с id: ${id} не существует`);
     }
 
     await TokenService.removeToken(null, user._id);

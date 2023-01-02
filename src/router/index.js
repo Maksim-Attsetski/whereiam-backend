@@ -24,6 +24,7 @@ router.get("/mail/activate/:link", mailController.activateLink);
 router.post("/mail/send", mailController.sendLink);
 
 router.get("/users", authMiddleware, userController.getUsers);
+router.get("/users/check", userController.checkIsExist);
 router.delete("/users/:_id", userController.deleteAccount);
 
 router.get("/phone/:phone", phoneController.sendSms);
